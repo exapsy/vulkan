@@ -1,6 +1,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
+#include <cstring>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -43,6 +44,8 @@ class Triangle {
 			createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 			createInfo.pApplicationInfo = &appInfo;
 
+      checkExtensionSupport();
+
 			uint32_t glfwExtensionCount = 0;
 			const char** glfwExtensions;
 
@@ -68,13 +71,30 @@ class Triangle {
 		}
 		void checkExtensionSupport() {
 			uint32_t glfwExtensionCount = 0;
-			const char** glfwExtensions;
-			glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+			const char** requiredExtensions;
+			requiredExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 			
-			std::vector<VkExtensionProperties> availableExtensions = getAvailableExtensions();
+			std::vector<VkExtensionProperties> availableExtensions
+        = getAvailableExtensions();
 
-			if( ranges::all_off()) {
-			}
+      for (uint32_t i = 0; i < glfwExtensionCount; i++) {
+        const char* requiredExtension = requiredExtensions[i];
+
+        const bool isExtensionAvailable = std::find_if(
+              availableExtensions.begin(),
+              availableExtensions.end(),
+              [=](VkExtensionProperties& availableExtension) {
+                return strcmp(
+                    availableExtension.extensionName,
+                    requiredExtension
+                );
+              }
+          ) != availableExtensions.end();
+        if (!isExtensionAvailable) {
+          std::cerr << "Extension " << requiredExtension << " is not available\n";
+          exit(EXIT_FAILURE);
+        }
+      }
 		}
 		std::vector<VkExtensionProperties> getAvailableExtensions() {
 			uint32_t extensionCount = 0;
