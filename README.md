@@ -7,7 +7,7 @@ This is just for my own sake to learn more about:
 - Graphics programming
 - Game engines
 - Low level Performance
-- How to get as much juice out of that bad boi GPU and CPU
+- How to get as much juice out of that bad boi
 
 ## WHY
 
