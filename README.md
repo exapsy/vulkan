@@ -27,7 +27,7 @@ Game/Graphic Engines try to take as much juice as possible out of every part of 
 - They use as fast algorithms and as suitable data structures as possible, as performance is very crucial to them.
 
 So by educating myself in regards to that matter, I'm also becoming more self aware of performance problems that might occur on every other project I involve myself into.
-I'm becoming better at code reviewing my and other people's code as I learn more about critical issues.
+I'm becoming better at code reviewing on mine and other people's code as I become more aware about critical issues.
 
 I'm also learning about what engineering decisions were being made to solve important problems, and what approaches were taken that I could inherit too as part of my own engineering mindset.
 
